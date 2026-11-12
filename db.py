@@ -11,5 +11,5 @@ class TransportDB:
 
     def get_table(self, table):
         cursor = self.connection.cursor()
-        cursor.execute("select * from %s")
+        cursor.execute("select * from '%s'", table)
         return cursor.fetchall()

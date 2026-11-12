@@ -43,7 +43,7 @@ def draw_select_menu(stdscr, opts):
 def draw_edit_view(stdscr, option, db):
     # todo: show function and allow deletes from here
     # should implement del
-    stdscr.addstr(0, 0, db.get_table(option))
+    stdscr.addstr(0, 0, f"{db.get_table(option)}")
 
 
 def draw_add_entry(stdscr, name):
