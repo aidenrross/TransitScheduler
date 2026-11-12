@@ -1,5 +1,6 @@
 import curses
 import math
+from db import TransportDB
 from curses.textpad import Textbox, rectangle
 
 
@@ -39,10 +40,10 @@ def draw_select_menu(stdscr, opts):
     draw_options(stdscr, opts)
 
 
-def draw_edit_view(stdscr):
+def draw_edit_view(stdscr, option, db):
     # todo: show function and allow deletes from here
     # should implement del
-    pass
+    stdscr.addstr(0, 0, db.get_table(option))
 
 
 def draw_add_entry(stdscr, name):
@@ -60,7 +61,7 @@ def draw_add_entry(stdscr, name):
     # dest.send() or something
 
 
-def draw_opt_view(stdscr, option):
+def draw_opt_view(stdscr, option, db):
     # stdscr.clear()
 
     while True:
@@ -79,7 +80,7 @@ def draw_opt_view(stdscr, option):
         if selection == "a":
             draw_add_entry(stdscr, option)
         elif selection == "e":
-            draw_edit_view(stdscr)
+            draw_edit_view(stdscr, option, db)
         elif selection == "b":
             break
     stdscr.clear()
@@ -93,6 +94,7 @@ def update(stdscr):
     stdscr.keypad(True)
 
     login = get_login(stdscr)
+    db = TransportDB(login)
 
     while True:
         draw_select_menu(stdscr, tables)
@@ -101,15 +103,15 @@ def update(stdscr):
         if c == "q":
             break
         elif c == curses.KEY_F1:
-            draw_opt_view(stdscr, tables[0])
+            draw_opt_view(stdscr, tables[0], db)
         elif c == curses.KEY_F2:
-            draw_opt_view(stdscr, tables[1])
+            draw_opt_view(stdscr, tables[1], db)
         elif c == curses.KEY_F3:
-            draw_opt_view(stdscr, tables[2])
+            draw_opt_view(stdscr, tables[2], db)
         elif c == curses.KEY_F4:
-            draw_opt_view(stdscr, tables[3])
+            draw_opt_view(stdscr, tables[3], db)
         elif c == curses.KEY_F5:
-            draw_opt_view(stdscr, tables[4])
+            draw_opt_view(stdscr, tables[4], db)
 
 
 def main():
