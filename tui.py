@@ -42,23 +42,8 @@ def draw_select_menu(stdscr, opts):
 
 def draw_edit_view(stdscr, option, db):
     entries = db.get_table_dict(option)
+    stdscr.addstr(f"{entries}")
 
-    editwindow = curses.newwin(len(entries), 256, 0, 0)
-
-    keyline = ""
-    for key in entries[0]:
-        keyline += f"  {key}  "
-
-    editwindow.addstr(0, 0, keyline + "\n")
-
-    # kinda broken gets data but needs to be displayed better
-    for line, entry in enumerate(entries):
-        ev = ""
-        for key, value in entry.items():
-            ev += f"  {value}  "
-        editwindow.addstr(ev)
-
-    editwindow.refresh()
     stdscr.refresh()
 
 
